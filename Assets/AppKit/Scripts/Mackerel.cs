@@ -72,6 +72,26 @@ namespace AppKit
                 }
 
             }
+            if (Application.platform == RuntimePlatform.WindowsEditor
+                || Application.platform == RuntimePlatform.WindowsPlayer)
+            {
+                string idPath = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+                string[] components =
+                {
+                    "Macerel",
+                    "mackerel-agent",
+                    "id"
+                };
+                foreach (var path in components)
+                {
+                    idPath = Path.Combine(idPath, path);
+                }
+
+                if (File.Exists(idPath))
+                {
+                    return File.ReadAllText(idPath);
+                }
+            }
             return "";
         }
 
